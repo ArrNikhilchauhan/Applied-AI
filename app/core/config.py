@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     SECRET:str
     LOGGING_LEVEL:str
     DEBUG:bool=False
+    LLM_PROVIDER:str="dummy"
 
     model_config=SettingsConfigDict(
         env_file='.env'

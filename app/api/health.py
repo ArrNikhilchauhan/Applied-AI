@@ -2,11 +2,10 @@ from fastapi import APIRouter,Depends
 from app.core.logger import logger
 from app.services.system_service import SystemService
 from app.schemas.system_schema import HealthResponse,HealthScoreResponse
+from app.api.dependencies import get_system_service
 
 health_router=APIRouter()
 
-def get_system_service():
-    return SystemService()
 
 @health_router.get('/health',response_model=HealthResponse)
 def health(system_ser=Depends(get_system_service)):
