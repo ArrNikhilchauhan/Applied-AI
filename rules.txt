@@ -1,0 +1,5 @@
+- DB sessions never cross threads
+- Background tasks create their own session
+- Repo is short-lived
+- Service never owns DB
+- Executor owns lifecycle

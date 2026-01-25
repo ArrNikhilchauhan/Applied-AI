@@ -1,5 +1,6 @@
 from app.services.llm_service import LLMService
 from app.services.system_service import SystemService
+from app.services.agent_service import AgentService
 from app.infra.llm.factory import get_llm
 from app.core.config import setting
 
@@ -8,3 +9,6 @@ def get_llm_service()->LLMService:
 
 def get_system_service()->SystemService:
     return SystemService()      
+
+def get_agent_service()->AgentService:
+    return AgentService(get_llm(setting.LLM_PROVIDER))
