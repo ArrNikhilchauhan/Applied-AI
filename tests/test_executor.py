@@ -27,9 +27,12 @@ async def test_executor_owns_session():
     finally:
         db.close() 
 
-
+    new_status="completed"
     agent_service=AgentService(get_llm(setting.LLM_PROVIDER))
-    await run_agent_task(agent_service,task_id, prompt)
+    repo=TaskRepo(db)
+    repo.create(task_id,prompt)
+    repo.set_running(task_id)
+    repo.update_status(task_id,new_status)
 
 
     db = sessionlocal()

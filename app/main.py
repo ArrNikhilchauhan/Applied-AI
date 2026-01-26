@@ -3,14 +3,19 @@ from app.core.logger import logger
 #from dotenv import load_dotenv # this shouldn't be imported here because main only wire app it can lead to multiple unncessary import which  make the system slow
 from app.api.health import health_router  # always import from root package not from relative this is wrong
 # from app.api.health import router this is correct
-from app.core.config import setting
 from app.api.llm import llm_router
 from app.api.agent import agent_router
+from app.core.config import setting
 from app.core.handlers import app_exception_handler
 from app.core.exceptions import AppException
+from app.infra.db.startup_scan import scan
 
 app=FastAPI()
 
+@app.on_event("startup")
+async def startup():
+    logger.info(f"App just started:{setting.APP_NAME}")
+    # scan()
 
 
 @app.on_event("shutdown")
